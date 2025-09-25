@@ -1,0 +1,51 @@
+import { useMemo, useState } from "react";
+import { products } from "@/data/products";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { useStore } from "@/lib/store";
+import BottomNav from "@/components/BottomNav";
+
+export default function Explore() {
+  const [q, setQ] = useState("");
+  const { dispatch } = useStore();
+
+  const filtered = useMemo(() => {
+    const v = q.trim().toLowerCase();
+    if (!v) return products;
+    return products.filter(
+      (p) => p.name.toLowerCase().includes(v) || p.category.toLowerCase().includes(v)
+    );
+  }, [q]);
+
+  return (
+    <div className="pb-24">
+      <header className="p-4 text-2xl font-semibold">Explore</header>
+      <div className="px-4 pb-4">
+        <Input
+          value={q}
+          onChange={(e) => setQ(e.target.value)}
+          placeholder="Search products..."
+          className="h-11"
+        />
+      </div>
+      <div className="px-4 grid grid-cols-2 gap-4">
+        {filtered.map((p) => (
+          <div key={p.id} className="border rounded-lg overflow-hidden bg-white">
+            <img src={p.image} alt={p.name} className="w-full h-28 object-contain p-2" />
+            <div className="px-3 pb-2">
+              <div className="font-medium line-clamp-1">{p.name}</div>
+              <div className="text-xs text-muted-foreground">{p.unit}, Price</div>
+              <div className="font-semibold mt-1">${p.price.toFixed(2)}</div>
+            </div>
+            <div className="p-3 pt-0">
+              <Button className="w-full" onClick={() => dispatch({ type: "ADD_TO_CART", id: p.id })}>
+                Add
+              </Button>
+            </div>
+          </div>
+        ))}
+      </div>
+      <BottomNav />
+    </div>
+  );
+}
