@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { useStore } from "@/lib/store";
 import { useParams, useNavigate } from "react-router-dom";
 import { Heart } from "lucide-react";
+import { useState } from "react";
 
 export default function ProductDetail() {
   const { id } = useParams<{ id: string }>();
