@@ -1,4 +1,10 @@
-import { createContext, useContext, useEffect, useMemo, useReducer } from "react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useMemo,
+  useReducer,
+} from "react";
 import { Product, products as mockProducts } from "@/data/products";
 
 export type CartItem = { id: string; qty: number };
@@ -34,7 +40,9 @@ function reducer(state: State, action: Action): State {
       const qty = action.qty ?? 1;
       const existing = state.cart.find((c) => c.id === action.id);
       const cart = existing
-        ? state.cart.map((c) => (c.id === action.id ? { ...c, qty: c.qty + qty } : c))
+        ? state.cart.map((c) =>
+            c.id === action.id ? { ...c, qty: c.qty + qty } : c,
+          )
         : [...state.cart, { id: action.id, qty }];
       return { ...state, cart };
     }
@@ -43,7 +51,9 @@ function reducer(state: State, action: Action): State {
     }
     case "SET_QTY": {
       const cart = state.cart
-        .map((c) => (c.id === action.id ? { ...c, qty: Math.max(0, action.qty) } : c))
+        .map((c) =>
+          c.id === action.id ? { ...c, qty: Math.max(0, action.qty) } : c,
+        )
         .filter((c) => c.qty > 0);
       return { ...state, cart };
     }
@@ -93,7 +103,11 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     localStorage.setItem(
       STORAGE_KEY,
-      JSON.stringify({ cart: state.cart, favourites: state.favourites, user: state.user })
+      JSON.stringify({
+        cart: state.cart,
+        favourites: state.favourites,
+        user: state.user,
+      }),
     );
   }, [state.cart, state.favourites, state.user]);
 
@@ -107,11 +121,18 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
   }, [state.cart, state.products]);
 
   const value = useMemo(
-    () => ({ state, dispatch, totals, getProduct: (id: string) => state.products.find((p) => p.id === id) }),
-    [state, totals]
+    () => ({
+      state,
+      dispatch,
+      totals,
+      getProduct: (id: string) => state.products.find((p) => p.id === id),
+    }),
+    [state, totals],
   );
 
-  return <StoreContext.Provider value={value}>{children}</StoreContext.Provider>;
+  return (
+    <StoreContext.Provider value={value}>{children}</StoreContext.Provider>
+  );
 }
 
 export function useStore() {

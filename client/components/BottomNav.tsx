@@ -20,7 +20,7 @@ export default function BottomNav() {
           className={({ isActive }) =>
             cn(
               "flex flex-col items-center justify-center gap-1 text-xs text-zinc-600 dark:text-zinc-300 px-2",
-              isActive && "text-primary"
+              isActive && "text-primary",
             )
           }
         >

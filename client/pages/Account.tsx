@@ -1,7 +1,17 @@
 import BottomNav from "@/components/BottomNav";
 import { Button } from "@/components/ui/button";
 import { useStore } from "@/lib/store";
-import { ChevronRight, CreditCard, Bell, HelpCircle, MapPin, Ticket, User2, Info, ShoppingBag } from "lucide-react";
+import {
+  ChevronRight,
+  CreditCard,
+  Bell,
+  HelpCircle,
+  MapPin,
+  Ticket,
+  User2,
+  Info,
+  ShoppingBag,
+} from "lucide-react";
 
 const Item = ({ icon: Icon, label }: { icon: any; label: string }) => (
   <div className="flex items-center justify-between py-3">
@@ -28,7 +38,9 @@ export default function Account() {
               <div className="text-zinc-500">{state.user.email}</div>
             </div>
           ) : (
-            <div className="mb-4 text-sm text-muted-foreground">Not logged in.</div>
+            <div className="mb-4 text-sm text-muted-foreground">
+              Not logged in.
+            </div>
           )}
 
           <div className="divide-y">
@@ -44,11 +56,24 @@ export default function Account() {
 
           <div className="mt-8">
             {state.user ? (
-              <Button variant="outline" className="w-full" onClick={() => dispatch({ type: "LOGOUT" })}>
+              <Button
+                variant="outline"
+                className="w-full"
+                onClick={() => dispatch({ type: "LOGOUT" })}
+              >
                 Log Out
               </Button>
             ) : (
-              <Button className="w-full" onClick={() => dispatch({ type: "LOGIN_MOCK", name: "Angela Lim", email: "angelalim@gmail.com" })}>
+              <Button
+                className="w-full"
+                onClick={() =>
+                  dispatch({
+                    type: "LOGIN_MOCK",
+                    name: "Angela Lim",
+                    email: "angelalim@gmail.com",
+                  })
+                }
+              >
                 Log In
               </Button>
             )}

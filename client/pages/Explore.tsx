@@ -14,7 +14,9 @@ export default function Explore() {
     const v = q.trim().toLowerCase();
     if (!v) return products;
     return products.filter(
-      (p) => p.name.toLowerCase().includes(v) || p.category.toLowerCase().includes(v)
+      (p) =>
+        p.name.toLowerCase().includes(v) ||
+        p.category.toLowerCase().includes(v),
     );
   }, [q]);
 
@@ -32,11 +34,20 @@ export default function Explore() {
         </div>
         <div className="px-4 grid grid-cols-2 gap-4">
           {filtered.map((p) => (
-            <div key={p.id} className="relative border rounded-xl overflow-hidden bg-white">
-              <img src={p.image} alt={p.name} className="w-full h-28 object-contain p-2" />
+            <div
+              key={p.id}
+              className="relative border rounded-xl overflow-hidden bg-white"
+            >
+              <img
+                src={p.image}
+                alt={p.name}
+                className="w-full h-28 object-contain p-2"
+              />
               <div className="px-3 pb-4">
                 <div className="font-medium line-clamp-1">{p.name}</div>
-                <div className="text-xs text-muted-foreground">{p.unit}, Price</div>
+                <div className="text-xs text-muted-foreground">
+                  {p.unit}, Price
+                </div>
                 <div className="font-semibold mt-1">${p.price.toFixed(2)}</div>
               </div>
               <button

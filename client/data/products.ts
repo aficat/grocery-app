@@ -40,8 +40,7 @@ export const products: Product[] = [
   {
     id: "naturel-red-apple",
     name: "Naturel Red Apple",
-    description:
-      "Crisp and juicy red apples. Great as a snack or in desserts.",
+    description: "Crisp and juicy red apples. Great as a snack or in desserts.",
     price: 4.99,
     unit: "1kg",
     image: "/placeholder.svg",
